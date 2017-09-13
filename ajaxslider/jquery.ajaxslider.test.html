@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="jquery.ajaxslider.js"></script>
+    <link rel="stylesheet" href="jquery.ajaxslider.css"/>
+</head>
+<body>
+<div id="slider"></div>
+<script>
+    $('#slider').ajaxslider({
+        width: 600,//宽度
+        height: 400,//高度
+        interval: 5000,//轮播间隔，ms
+        speed: 500,//动画速度,ms
+        showPrevNextButton: false,
+        data: 'jquery.ajaxslider.test.json'  //支持 String ，Array ，Function 三种模式
+    });
+</script>
+</body>
+</html>
