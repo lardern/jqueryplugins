@@ -6,7 +6,8 @@
 (function ($) {
   $.fn.ajaxslider = function (options) {
     var config = {
-      showPrevNextButton:true,
+      showPrevNextButton: false,
+      showBulletList:false,
       height: 300,//高度
       width: 300,//宽度
       interval: 5000,//轮播间隔，ms
@@ -39,7 +40,7 @@
 
       $.each(sliderJSON, function (index, element) {
         sliderList.append("<li><a href='#'><img src='" + element.url + "' alt=''></a>" +
-          "<div class='content'>" + element.text + "</div></li>");
+          ((element.text==null||element.text=='')?"":"<div class='content'>" + element.text + "</div></li>"));
         bulletList.append("<li id='bullet_" + (index + 1) + "'></li>");
       });
 
@@ -52,15 +53,18 @@
 
       var firstSlide = sliderList.find("li:first-child"),
         lastSlide = sliderList.find("li:last-child"),
-        buttonPrev = $(".button-prev"),
-        buttonNext = $(".button-next"),
+        buttonPrev = el.find(".button-prev"),
+        buttonNext = el.find(".button-next"),
         sliderCount = sliderList.children().length,
         sliderWidth = 100.0 / sliderCount,
         slideIndex = 0,
         intervalID;
-      if(!config.showPrevNextButton){
+      if (!config.showPrevNextButton) {
         buttonPrev.hide();
         buttonNext.hide();
+      }
+      if(!config.showBulletList){
+        bulletList.hide();
       }
       lastSlide.clone().prependTo(sliderList);
       firstSlide.clone().appendTo(sliderList);
@@ -80,7 +84,7 @@
       buttonNext.on('click', function () {
         slide(slideIndex + 1);
       });
-      $('.bulletList li').on('click', function () {
+      el.find('.bulletList li').on('click', function () {
         var id = ($(this).attr('id').split('_')[1]) - 1;
         slide(id);
       });
@@ -96,21 +100,21 @@
         var marginLeft = (newSlideIndex * (-100) - 100) + "%";
         sliderList.animate({"margin-left": marginLeft}, config.speed, function () {
           if (newSlideIndex < 0) {
-            $(".bulletActive").removeClass('bulletActive');
+            el.find(".bulletActive").removeClass('bulletActive');
             bulletList.find("li:last-child").addClass("bulletActive");
             sliderList.css({"margin-left": ((sliderCount) * (-100)) + "%"});
             newSlideIndex = sliderCount - 1;
             slideIndex = newSlideIndex;
             return;
           } else if (newSlideIndex >= sliderCount) {
-            $(".bulletActive").removeClass('bulletActive');
+            el.find(".bulletActive").removeClass('bulletActive');
             bulletList.find("li:first-child").addClass("bulletActive");
             sliderList.css({"margin-left": "-100%"});
             newSlideIndex = 0;
             slideIndex = newSlideIndex;
             return;
           }
-          $(".bulletActive").removeClass('bulletActive');
+          el.find(".bulletActive").removeClass('bulletActive');
           bulletList.find('li:nth-child(' + (newSlideIndex + 1) + ')').addClass('bulletActive');
           slideIndex = newSlideIndex;
         });
