@@ -35,6 +35,9 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     float: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .th {

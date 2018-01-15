@@ -48,7 +48,7 @@
                 var clsName=el.find('.tbody .tr:last').hasClass('odd')?'eve':'odd';
                 var tr = config.rowRender(el, config.columns, data[point], rowHeight, clsName);
                 el.find('.tbody .tr:first').animate({marginTop: rowHeight * -2}, config.speed, "swing", function () {
-                    this.remove();
+                    $(this).remove();
                     el.find('.tbody .tr:first').css({
                         'margin-top': -rowHeight + 'px'
                     });
